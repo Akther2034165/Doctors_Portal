@@ -10,7 +10,7 @@ const contactBanner = {
 };
 const Contact = () => {
   return (
-    <Container style={contactBanner} sx={{ flexGrow: 1, height: "600px" }}>
+    <Container style={contactBanner} sx={{ flexGrow: 1, height: "500px" }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={12}>
           <Box
@@ -19,7 +19,7 @@ const Contact = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              marginTop: "80px",
+              marginTop: "50px",
             }}
           >
             <Typography variant="h5" sx={{ color: "#00BCD4", fontWeight: 400 }}>

@@ -13,38 +13,63 @@ const Features = () => {
         <Grid item xs={12} md={4}>
           <Paper
             elevation={3}
-            sx={{ background: "#00BCD4", color: "white", my: 2 }}
+            sx={{ background: "#00BCD4", color: "white", my: 3 }}
           >
-            <AccessTimeOutlinedIcon
-              sx={{ fontSize: 60 }}
-            ></AccessTimeOutlinedIcon>
-            <Box sx={{ textAlign: "center" }}>
-              <Typography>Opening hours</Typography>
-              <Typography>Lorem ipsum dolor sit amet.</Typography>
+            <br />
+            <Box sx={{ display: "flex" }}>
+              <Box>
+                <AccessTimeOutlinedIcon
+                  sx={{ fontSize: 60, mx: 5 }}
+                ></AccessTimeOutlinedIcon>
+              </Box>
+              <Box sx={{ textAlign: "left" }}>
+                <Typography>Opening hours</Typography>
+                <Typography>Lorem ipsum dolor sit amet.</Typography>
+                <br />
+                <br />
+              </Box>
             </Box>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4}>
           <Paper
             elevation={3}
-            sx={{ background: "gray", color: "white", my: 2 }}
+            sx={{ background: "gray", color: "white", my: 3 }}
           >
-            <EditLocationIcon sx={{ fontSize: 60 }}></EditLocationIcon>
-            <Box sx={{ textAlign: "center" }}>
-              <Typography>Visit our location</Typography>
-              <Typography>Lorem ipsum dolor sit amet.</Typography>
+            <br />
+            <Box sx={{ display: "flex" }}>
+              <Box>
+                <EditLocationIcon
+                  sx={{ fontSize: 60, mx: 5 }}
+                ></EditLocationIcon>
+              </Box>
+              <Box sx={{ textAlign: "left" }}>
+                <Typography>Visit our location</Typography>
+                <Typography>Lorem ipsum dolor sit amet.</Typography>
+                <br />
+                <br />
+              </Box>
             </Box>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4}>
           <Paper
             elevation={3}
-            sx={{ background: "#00BCD4", color: "white", my: 2 }}
+            sx={{ background: "#00BCD4", color: "white", my: 3 }}
           >
-            <CallOutlinedIcon sx={{ fontSize: 60 }}></CallOutlinedIcon>
-            <Box sx={{ textAlign: "center" }}>
-              <Typography>Opening hours</Typography>
-              <Typography>Lorem ipsum dolor sit amet.</Typography>
+            <br />
+            <Box sx={{ display: "flex" }}>
+              <Box>
+                <CallOutlinedIcon
+                  sx={{ fontSize: 60, mx: 5 }}
+                ></CallOutlinedIcon>
+              </Box>
+              <Box sx={{ textAlign: "left" }}>
+                <Typography>Contact us now</Typography>
+                <Typography>Lorem ipsum dolor sit amet.</Typography>
+                <br />
+                <br />
+              </Box>
             </Box>
           </Paper>
         </Grid>
