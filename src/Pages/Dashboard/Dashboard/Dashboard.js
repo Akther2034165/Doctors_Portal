@@ -15,18 +15,21 @@ import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Button, Grid } from "@mui/material";
-import Calendar from "../../Shared/Calendar/Calendar";
-import Appointments from "../Appointments/Appointments";
-import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
+import DashboardHome from "../DashboardHome/DashboardHome";
+import MakeAdmin from "../MakeAdmin/MakeAdmin";
+import AddDoctor from "../AddDoctor/AddDoctor";
+import useAuth from "../../../hooks/useAuth";
+import AdminRoute from "../../Login/AdminRoute/AdminRoute";
 
 const drawerWidth = 200;
 
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [date, setDate] = React.useState(new Date());
-
+  let { path, url } = useRouteMatch();
+  const { admin } = useAuth();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -38,6 +41,19 @@ function Dashboard(props) {
       <Link to="/appointment">
         <Button style={{ textDecoration: "none" }}>Appointment</Button>
       </Link>
+      <Link to={`${url}`}>
+        <Button style={{ textDecoration: "none" }}>Dashboard</Button>
+      </Link>
+      {admin && (
+        <Box>
+          <Link to={`${url}/makeAdmin`}>
+            <Button style={{ textDecoration: "none" }}>Make Admin</Button>
+          </Link>
+          <Link to={`${url}/addDoctor`}>
+            <Button style={{ textDecoration: "none" }}>Add Doctor</Button>
+          </Link>
+        </Box>
+      )}
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>
@@ -127,16 +143,17 @@ function Dashboard(props) {
         }}
       >
         <Toolbar />
-        <Typography paragraph>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
-              <Calendar date={date} setDate={setDate}></Calendar>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Appointments date={date}></Appointments>
-            </Grid>
-          </Grid>
-        </Typography>
+        <Switch>
+          <Route exact path={path}>
+            <DashboardHome />
+          </Route>
+          <AdminRoute path={`${path}/makeAdmin`}>
+            <MakeAdmin />
+          </AdminRoute>
+          <AdminRoute path={`${path}/addDoctor`}>
+            <AddDoctor />
+          </AdminRoute>
+        </Switch>
       </Box>
     </Box>
   );

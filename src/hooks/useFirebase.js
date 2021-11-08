@@ -9,6 +9,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   updateProfile,
+  getIdToken,
 } from "firebase/auth";
 //initialize firebase app
 initializeFirebase();
@@ -16,8 +17,12 @@ const useFirebase = () => {
   const [user, setUser] = useState({});
   const [isloading, setIsLoading] = useState(true);
   const [authError, setAuthError] = useState("");
+  const [admin, setAdmin] = useState(false);
+  const [token, setToken] = useState("");
   const auth = getAuth();
   const googleProvider = new GoogleAuthProvider();
+
+  //register user
   const registerUser = (email, password, name, history) => {
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
@@ -26,6 +31,8 @@ const useFirebase = () => {
         // Signed in
         const newUser = { email, displayName: name };
         setUser(newUser);
+        //save user to databse
+        saveUser(email, name, "POST");
         //send name to firebase after creation
 
         updateProfile(auth.currentUser, {
@@ -64,7 +71,11 @@ const useFirebase = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const user = result.user;
+        //save user to databse
+        saveUser(user.email, user.displayName, "PUT");
         setAuthError("");
+        const destination = location?.state?.from || "/";
+        history.replace(destination);
       })
       .catch((error) => {
         setAuthError(error.message);
@@ -76,13 +87,23 @@ const useFirebase = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        getIdToken(user).then((idToken) => {
+          setToken(idToken);
+        });
       } else {
         setUser({});
       }
       setIsLoading(false);
     });
     return () => unsubscribe;
-  }, []);
+  }, [auth]);
+
+  //admin
+  useEffect(() => {
+    fetch(`https://limitless-sands-94907.herokuapp.com/users/${user.email}`)
+      .then((res) => res.json())
+      .then((data) => setAdmin(data.admin));
+  }, [user.email]);
 
   //logout
   const logout = () => {
@@ -96,9 +117,22 @@ const useFirebase = () => {
       })
       .finally(() => setIsLoading(false));
   };
+  //save user to db
 
+  const saveUser = (email, displayName, method) => {
+    const user = { email, displayName };
+    fetch("https://limitless-sands-94907.herokuapp.com/users", {
+      method: method,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    }).then();
+  };
   return {
     isloading,
+    admin,
+    token,
     user,
     registerUser,
     loginUser,
