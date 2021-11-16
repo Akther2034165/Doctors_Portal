@@ -22,6 +22,7 @@ import MakeAdmin from "../MakeAdmin/MakeAdmin";
 import AddDoctor from "../AddDoctor/AddDoctor";
 import useAuth from "../../../hooks/useAuth";
 import AdminRoute from "../../Login/AdminRoute/AdminRoute";
+import Payment from "../Payment/Payment";
 
 const drawerWidth = 200;
 
@@ -147,6 +148,9 @@ function Dashboard(props) {
           <Route exact path={path}>
             <DashboardHome />
           </Route>
+          <Route path={`${path}/payment/:appointmentId`}>
+            <Payment />
+          </Route>
           <AdminRoute path={`${path}/makeAdmin`}>
             <MakeAdmin />
           </AdminRoute>
@@ -160,10 +164,6 @@ function Dashboard(props) {
 }
 
 Dashboard.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 
