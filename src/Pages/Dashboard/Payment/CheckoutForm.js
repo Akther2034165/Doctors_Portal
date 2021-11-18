@@ -12,7 +12,7 @@ const CheckoutForm = ({ appointment }) => {
   const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://limitless-sands-94907.herokuapp.com/create-payment-intent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -70,7 +70,7 @@ const CheckoutForm = ({ appointment }) => {
         last4: paymentMethod.card.last4,
         transaction: paymentIntent.client_secret.slice("_secret")[0],
       };
-      const url = `http://localhost:5000/appointments/${_id}`;
+      const url = `https://limitless-sands-94907.herokuapp.com/appointments/${_id}`;
       fetch(url, {
         method: "PUT",
         headers: {
